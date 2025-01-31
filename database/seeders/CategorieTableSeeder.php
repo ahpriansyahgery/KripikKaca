@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+
+use App\Models\Categorie;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -25,7 +26,7 @@ class CategorieTableSeeder extends Seeder
             ];
 
             foreach ($categories as $key => $categorie) {
-                Category::create($categorie);
+                Categorie::create($categorie);
             }
     }
 }

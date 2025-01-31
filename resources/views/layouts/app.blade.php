@@ -48,7 +48,7 @@
   </head>
 
   <body class="index-page">
-    
+
 
     <main class="main">
       @include('components.navbar')

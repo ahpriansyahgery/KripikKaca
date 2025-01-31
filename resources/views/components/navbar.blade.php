@@ -3,7 +3,7 @@
       class="container position-relative d-flex align-items-center justify-content-between"
     >
       <a
-        href="index.html"
+        href="{{ route('welcome') }}"
         class="logo d-flex align-items-center me-auto me-xl-0"
       >
         <!-- Uncomment the line below if you also wish to use an image logo -->
@@ -23,7 +23,29 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
-      <a class="btn-getstarted" href="index.html#book-a-table">Login</a>
+      @auth
+      <div class="d-flex user-logged nav-item dropdown no-arrow">
+        <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" >
+          Halo, {{ Auth::user()->name }} !
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right:0; left:auto"  >
+            <li>
+              <a href="#" class="dropdown-item" > Cart </a>
+            </li>
+            <li>
+              <a href="#" class="dropdown-item" > Dashboard </a>
+            </li>
+            <li>
+              <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" > Logout </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none" >
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"  >
+              </form>
+            </li>
+          </ul>
+        </a>
+      </div>
+        @else
+        <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
+      @endauth
+     
     </div>
   </header>

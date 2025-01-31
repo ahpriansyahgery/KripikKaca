@@ -64,7 +64,7 @@
                   </div>
 
                   <p class="text-center">
-                    <a class="btn btn btn-outline-primary  btn-google-login" href="#">
+                    <a class="btn btn btn-outline-primary  btn-google-login" href="{{ route('user.login.google') }}">
                         <img src="{{ asset ('user/assets/img/ic_google.svg') }}" class="icon" alt=""> Sign In with Google
                     </a>
                 </p>
