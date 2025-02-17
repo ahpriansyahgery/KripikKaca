@@ -6,10 +6,11 @@
     <title>Index - Yummy Bootstrap Template</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicons -->
     <link href="{{ asset('user/assets/img/favicon.png') }}" rel="icon" />
     <link href="{{ asset('user/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -37,7 +38,7 @@
 
     <!-- Main CSS File -->
     <link href="{{ asset('user/assets/css/main.css') }}" rel="stylesheet" />
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- =======================================================
   * Template Name: Yummy
   * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
@@ -136,9 +137,150 @@
     <script src="{{ asset('user/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('user/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
     <script src="{{ asset('user/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+<!-- jQuery & AJAX -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function () {
+    let deleteItemId = null;
+
+    // Simpan ID item saat tombol Delete ditekan
+    $('.btn-delete').on('click', function () {
+        deleteItemId = $(this).data('id');
+    });
+
+    // Saat tombol Hapus dalam modal diklik
+    $('#confirmDeleteBtn').on('click', function (event) {
+        event.preventDefault(); // Mencegah submit form dan refresh halaman
+
+        if (deleteItemId) {
+            $.ajax({
+                url: "/cart/" + deleteItemId, // Route Laravel
+                type: "POST",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'), // Pastikan CSRF token benar
+                    _method: "DELETE"
+                },
+                success: function (response) {
+                    if (response.success) { // Pastikan respons dari server sukses
+                        // **Sembunyikan modal setelah sukses**
+                        $('#confirmDeleteModal').modal('hide');
+
+                        // **Hapus backdrop modal yang tertinggal**
+                        setTimeout(() => {
+                            $('.modal-backdrop').remove();
+                            $('body').removeClass('modal-open');
+                        }, 300);
+
+                        // **Hapus baris item dari tabel tanpa refresh**
+                        $('#cart-item-' + deleteItemId).fadeOut(300, function () {
+                            $(this).remove();
+                          // Update nomor urut
+                            $('.cart-item-row').each(function (index) {
+                          $(this).find('.item-number').text(index + 1);
+                          });
+                        });
+
+                        // **Perbarui total harga di tampilan**
+                        $('#total-price').text('Rp ' + response.totalHarga.toLocaleString());
+
+                        // **Alihkan fokus setelah modal tertutup**
+                        setTimeout(() => {
+                            $('body').focus();
+                        }, 300);
+                    } else {
+                        alert("Gagal menghapus item. Silakan coba lagi.");
+                    }
+                },
+                error: function (xhr) {
+                    $('#errorModal').modal('show'); // Tampilkan modal error jika gagal
+                }
+            });
+        }
+    });
+    
+});
+
+// Add Product 
+$(document).on('click', '.btn-add-to-cart', function () {
+    let form = $(this).closest('.add-to-cart-form');
+    let productId = form.data('product-id');
+    let productVarianId = form.find('.product_varian_id').val();
+    let jumlahProduct = form.find('.jumlah_product').val();
+
+    $.ajax({
+        url: "/cart/add/" + productId,
+        type: "POST",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            product_id: productId,
+            product_varian_id: productVarianId,
+            jumlah_product: jumlahProduct
+        },
+        success: function (response) {
+            // ✅ Pastikan modal ada di HTML
+            $('#cartMessageModal .modal-body').html(response.message);
+            $('#cartMessageModal').appendTo('body').modal('show');
+           
+            // ✅ Hilangkan modal setelah 3 detik
+            setTimeout(() => {
+                $('#cartMessageModal').modal('hide');
+            }, 3000);
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert("Terjadi kesalahan, coba lagi.");
+        }
+    });
+});
+
+
+// Update jumlah 
+$(document).ready(function () {
+    $('.update-cart').on('change', function () {
+        let cartitemsId = $(this).data('id');
+        let jumlahProduct = $(this).val();
+
+        $.ajax({
+            url: "/cart/update/" + cartitemsId,
+            type: "POST",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                jumlah_product: jumlahProduct
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Update subtotal produk di tampilan
+                    $('#subtotal-' + cartitemsId).text('Rp' + response.subTotal.toLocaleString());
+
+                    // Update total harga di tampilan
+                    $('#total-price').text('Rp' + response.totalHarga.toLocaleString());
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert("Terjadi kesalahan, coba lagi.");
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
+</script>
+
+  
 
     <!-- Main JS File -->
     <script src="{{ asset('user/assets/js/main.js') }}"></script>
+
   </body>
 </html>
 

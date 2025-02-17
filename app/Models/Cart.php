@@ -11,4 +11,16 @@ class Cart extends Model
     use HasFactory,softDeletes;
 
     protected $fillable = ['user_id','total_harga'];
+
+     // Relasi ke tabel `cart_item`
+     public function cartitems()
+     {
+         return $this->hasMany(CartItem::class);
+     }
+ 
+     // Relasi ke tabel `users`
+     public function user()
+     {
+         return $this->belongsTo(User::class);
+     }
 }

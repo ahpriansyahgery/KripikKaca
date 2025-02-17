@@ -13,23 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cartitems', function (Blueprint $table) {
+        Schema::create('product_varians', function (Blueprint $table) {
             $table->id();
-           
             $table->bigInteger('product_id')->unsigned();
-            $table->bigInteger('cart_id')->unsigned();
-            
-
-            $table->integer('jumlah_product')->unsigned()->nullable();
-            $table->integer('sub_total')->unsigned()->nullable();
+            $table->integer('weight')->nullable();
+            $table->integer('price_weight')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-           
-            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
-           
+
+
         });
     }
 
@@ -40,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cartitems');
+        Schema::dropIfExists('product_varians');
     }
 };

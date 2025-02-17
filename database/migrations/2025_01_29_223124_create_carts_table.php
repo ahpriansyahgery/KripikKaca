@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->integer('total_harga')->unsigned();
+            $table->integer('total_harga')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 

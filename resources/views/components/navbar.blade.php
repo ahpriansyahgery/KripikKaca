@@ -20,6 +20,13 @@
           <li  ><a class="{{ request()->is('menu.index') ? 'active' : '' }}" href="{{ route('menu.index') }}">Menu</a></li>
 
           <li><a href="#contact">Contact</a></li>
+          
+            <li >
+              <a href="{{ route('cart.view') }}" class="text-align-center"  >
+               <button type="button" class="btn btn-success" >Keranjang</button>
+            </a>
+             
+            </li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -28,11 +35,9 @@
         <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" >
           Halo, {{ Auth::user()->name }} !
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right:0; left:auto"  >
+           
             <li>
-              <a href="#" class="dropdown-item" > Cart </a>
-            </li>
-            <li>
-              <a href="#" class="dropdown-item" > Dashboard </a>
+              <a href="{{ route('dashboard') }}" class="dropdown-item" > Dashboard </a>
             </li>
             <li>
               <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" > Logout </a>

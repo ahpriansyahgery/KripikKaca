@@ -121,7 +121,7 @@
     <!-- /Menu Section -->
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section light-background">
+    {{-- <section id="testimonials" class="testimonials section light-background">
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>TESTIMONIALS</h2>
@@ -304,7 +304,7 @@
           <div class="swiper-pagination"></div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- /Testimonials Section -->
 
     <!-- Events Section -->

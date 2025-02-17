@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 
+use App\Models\Product;
+use App\Models\ProductVarians;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Categorie::with('products')->get();
+        $categories = Categorie::with('products.productVarians')->get();
         return view('menu', compact('categories'));
     }
 
@@ -49,7 +50,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+       
     }
 
     /**

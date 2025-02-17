@@ -16,19 +16,18 @@ return new class extends Migration
         Schema::create('cartitems', function (Blueprint $table) {
             $table->id();
            
-            $table->bigInteger('product_id')->unsigned();
             $table->bigInteger('cart_id')->unsigned();
-            
-
+            $table->bigInteger('product_id')->unsigned();
+            $table->bigInteger('product_varian_id')->unsigned();
             $table->integer('jumlah_product')->unsigned()->nullable();
             $table->integer('sub_total')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-           
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_varian_id')->references('id')->on('product_varians')->onDelete('cascade');
            
         });
     }

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <section id="menu" class="menu section">
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
@@ -53,11 +54,38 @@
             /></a>
             <h4>{{ $product->name }}</h4>
             <p class="ingredients">
-              Lorem, deren, trataro, filede, nerada
+              Rasa : Original
             </p>
-            <p class="price">Rp.{{ $product->price }}</p>
+            <form class="d-flex flex-column add-to-cart-form" data-product-id="{{ $product->id }}">
+              @csrf
+              <label for="product_varian_id">Pilih Ukuran:</label>
+              <select name="product_varian_id" class="form-select product_varian_id">
+                  @foreach ($product->productVarians as $productvarian)
+                      <option value="{{ $productvarian->id }}">
+                          {{ $productvarian->weight }}Kg - Rp{{ number_format($productvarian->price_weight) }}
+                      </option>
+                  @endforeach
+              </select>
+          
+              <label for="jumlah_product">Jumlah:</label>
+              <input type="number" name="jumlah_product" class="jumlah_product" value="1" min="1">
+          
+              <button class="btn btn-primary mt-2 btn-add-to-cart"   type="button">Order</button>
+          </form>
+          
+         
+          
+            
+  
+            
+ 
+            {{-- <p class="price">Rp.{{ $product->price }}</p>
+             --}}
+          
+      
           </div>
-          <!-- Menu Item -->
+          
+          
 
          
           <!-- Menu Item -->
@@ -86,6 +114,24 @@
       <!-- End Dinner Menu Content -->
       @endforeach
     </div>
+
+    <div class="modal fade" id="cartMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Product</h5>
+                  
+              </div>
+              <div class="modal-body">
+        
+              </div>
+          </div>
+      </div>
+    </div>
   </div>
+ <!-- Modal Notifikasi -->
+
 </section>
+
+
 @endsection

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('order_id')->unsigned();
             $table->bigInteger('product_id')->unsigned();
+            
             $table->integer('jumlah_product')->unsigned();
             $table->integer('price_at_product')->unsigned();
             $table->integer('sub_total')->unsigned();

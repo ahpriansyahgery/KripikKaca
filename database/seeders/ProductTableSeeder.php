@@ -18,29 +18,29 @@ class ProductTableSeeder extends Seeder
         $products = [
             [
                 'categorie_id' => 1,
-                'name'         => 'Kripik Kaca Original',
+                'name'         => 'Kripik Kaca ',
                 'price'       => 10000,
             ],
-            [
-                'categorie_id' => 1,
-                'name'         => 'Kripik Kaca Pedas',
-                'price'       => 10000,
-            ],
-            [
-                'categorie_id' => 1,
-                'name'         => 'Kripik Kaca Tolenjeng',
-                'price'       => 10000,
-            ],
-            [
-                'categorie_id' => 2,
-                'name'         => 'Basreng Orginal',
-                'price'       => 10000,
-            ],
+            // [
+            //     'categorie_id' => 1,
+            //     'name'         => 'Kripik Kaca Pedas',
+            //     'price'       => 10000,
+            // ],
+            // [
+            //     'categorie_id' => 1,
+            //     'name'         => 'Kripik Kaca Tolenjeng',
+            //     'price'       => 10000,
+            // ],
             [
                 'categorie_id' => 2,
-                'name'         => 'Basreng Pedas',
+                'name'         => 'Basreng ',
                 'price'       => 10000,
             ],
+            // [
+            //     'categorie_id' => 2,
+            //     'name'         => 'Basreng Pedas',
+            //     'price'       => 10000,
+            // ],
         ];
 
         foreach ($products as $key => $product) {
