@@ -10,7 +10,14 @@
                 <p>Email: {{ $user->email }}</p>
                 <p>No. HP: {{ $orders->checkout->no_hp ?? '-' }}</p>
                 <p>Alamat: {{ $orders->checkout->address ?? '-' }}</p>
-                <p>Status: {{ $orders->is_paid ?? '-' }}</p>
+                <p>Status :</p>
+                    @if (!$orders->is_paid)
+                    <span class="badge  rounded-pill  bg-warning" >Belum Di Konfirmasi Admin</span>
+                    @else
+                    <span class="badge  rounded-pill  bg-success" >Order di Terima</span>
+                    @endif
+
+                
             </div>
         </div>
 

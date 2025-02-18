@@ -52,7 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->group(function(){
         Route::get('/', [AdminDashboard::class, 'index'])->name('dashboard');
         Route::get('/order',[AdminDashboard::class, 'order'])->name('order');
-       
+        Route::post('order/{order}', [AdminDashboard::class, 'statusOrder'])->name('order.status');
+        Route::get('order/export',[AdminDashboard::class, 'exportOrder'])->name('order.export');
     });
 
 });
